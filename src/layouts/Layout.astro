@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+import logo from '../../photos/LOGO.jpeg';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Adailton Som: sonorização profissional, palcos, iluminação, painéis de LED, fechamentos, gradis, camarins e grupos geradores para seu evento. Fale conosco."
+    />
+    <meta
+      property="og:title"
+      content="Adailton Som | Seu evento em outra frequência"
+    />
+    <meta
+      property="og:description"
+      content="Som, luz e estrutura. Tudo em sintonia para o seu evento."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:image" content={logo.src} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Adailton Som | Sonorização e estrutura para eventos</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">
+      Pular para o conteúdo
+    </a>
+    <slot />
+  </body>
+</html>
