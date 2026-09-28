@@ -160,8 +160,14 @@ section[id] {
   align-items: center;
   gap: 30px;
 }
-.header-inner > .wordmark {
+.header-logo {
   justify-self: start;
+}
+.header-logo img {
+  display: block;
+  width: 240px;
+  height: 64px;
+  object-fit: cover;
 }
 .wordmark {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
@@ -923,6 +929,9 @@ h2 {
     grid-template-columns: 1fr;
     padding-block: 19px;
     row-gap: 22px;
+  }
+  .header-logo {
+    justify-self: center;
   }
   .wordmark {
     font-size: 23px;

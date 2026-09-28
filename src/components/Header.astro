@@ -1,10 +1,12 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../photos/LOGO 2.jpeg';
+---
+
 <header class="site-header">
   <div class="container header-inner">
-    <a href="#inicio" class="wordmark" aria-label="Adailton Som — início">
-      ADAILTON
-      <span>
-        SOM<span class="brand-dot">®</span>
-      </span>
+    <a href="#inicio" class="header-logo" aria-label="Adailton Som — início">
+      <Image src={logo} alt="Adailton Som" width={640} format="webp" loading="eager" />
     </a>
     <nav aria-label="Navegação principal">
       <a href="#servicos">O que fazemos</a>
