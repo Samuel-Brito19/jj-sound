@@ -1,0 +1,45 @@
+---
+import { services } from '../data/site';
+import Icon from './Icon.astro';
+---
+
+<section
+  class="services section-pad"
+  id="servicos"
+  aria-labelledby="services-title"
+>
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">
+          <span></span> ESTRUTURA COMPLETA
+        </p>
+        <h2 id="services-title">
+          Você imagina.
+          <br />A gente faz acontecer.
+        </h2>
+      </div>
+      <p>
+        Do primeiro ajuste ao último aplauso,
+        <br class="desktop-break" /> a estrutura que seu evento precisa
+        <br class="desktop-break" /> está aqui.
+      </p>
+    </div>
+    <div class="services-grid">
+      {services.map((service, index) => (
+        <article class="service-card">
+          <div class="service-card-top">
+            <Icon name={service.icon} size={31} />
+            <span>0{index + 1}</span>
+          </div>
+          <h3>{service.name}</h3>
+          <p>{service.description}</p>
+        </article>
+      ))}
+    </div>
+    <p class="services-note">
+      <span class="small-dot"></span> Som, luz e estrutura. Tudo em sintonia, em
+      um só lugar.
+    </p>
+  </div>
+</section>
