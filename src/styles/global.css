@@ -262,17 +262,11 @@ h2 em {
 .brand-baseline {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   border-top: 1px solid #222;
   margin: 35px 25px 0;
   padding-top: 24px;
   gap: 16px;
-}
-.brand-baseline > span {
-  font-size: 11px;
-  letter-spacing: 1.4px;
-  color: #777;
-  white-space: nowrap;
 }
 .soundwave {
   display: flex;
@@ -784,10 +778,6 @@ h2 {
   .brand-baseline {
     margin-inline: 5px;
   }
-  .brand-baseline > span {
-    font-size: 11px;
-    letter-spacing: 0.7px;
-  }
   .soundwave {
     gap: 2px;
   }
@@ -854,12 +844,6 @@ h2 {
   .brand-caption {
     font-size: 12px;
     letter-spacing: 1.5px;
-  }
-  .brand-baseline > span {
-    display: none;
-  }
-  .brand-baseline {
-    justify-content: center;
   }
   .event-strip > div {
     height: 175px;
@@ -994,14 +978,8 @@ h2 {
     font-size: 12px;
   }
   .brand-baseline {
-    flex-wrap: wrap;
     margin-top: 18px;
     padding-top: 16px;
-    justify-content: space-between;
-  }
-  .brand-baseline > span {
-    display: inline;
-    font-size: 11px;
   }
   .hero-bottom {
     font-size: 12px;
