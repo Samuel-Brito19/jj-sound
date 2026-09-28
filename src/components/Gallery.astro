@@ -1,0 +1,236 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Icon from './Icon.astro';
+import photo19 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.19 PM.jpeg';
+import photo25 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.25 PM.jpeg';
+import photo16 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.16 PM.jpeg';
+import photo26 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.26 PM.jpeg';
+import photo22 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.22 PM.jpeg';
+import photo33 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.33 PM.jpeg';
+import photo17 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.17 PM.jpeg';
+import photo20 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.20 PM.jpeg';
+import photo23 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.23 PM.jpeg';
+import photo27 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.27 PM.jpeg';
+import photo29 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.29 PM.jpeg';
+import photo30 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.30 PM.jpeg';
+import photo32 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.32 PM.jpeg';
+import photo34 from '../../photos/WhatsApp Image 2026-09-21 at 1.48.34 PM.jpeg';
+const photos = [
+  {
+    src: photo19,
+    title: 'O palco é só o começo.',
+    category: 'PALCO · LED · ILUMINAÇÃO',
+    alt: 'Palco de show à noite com painéis de LED e iluminação colorida',
+  },
+  {
+    src: photo25,
+    title: 'Cada detalhe conta.',
+    category: 'SONORIZAÇÃO',
+    alt: 'Mesa digital de som durante a operação de um evento',
+  },
+  {
+    src: photo16,
+    title: 'A atmosfera certa.',
+    category: 'ILUMINAÇÃO · LED',
+    alt: 'Salão de evento com mesas e iluminação vermelha',
+  },
+  {
+    src: photo26,
+    title: 'Para sentir de perto.',
+    category: 'SHOWS E EVENTOS',
+    alt: 'Público em frente a um palco iluminado à noite',
+  },
+  {
+    src: photo22,
+    title: 'Por trás do espetáculo.',
+    category: 'CAMARINS · ESTRUTURA',
+    alt: 'Estrutura de camarins montada na área externa de um evento',
+  },
+  {
+    src: photo33,
+    title: 'Presença em cada nota.',
+    category: 'SOM · PAINÉIS DE LED',
+    alt: 'Caixas de som diante de um painel de LED no palco',
+  },
+  {
+    src: photo17,
+    title: 'Encontros que marcam.',
+    category: 'SONORIZAÇÃO · PALCO',
+    alt: 'Palco com iluminação azul e público reunido à noite',
+  },
+  {
+    src: photo20,
+    title: 'Cor em movimento.',
+    category: 'ILUMINAÇÃO',
+    alt: 'Palco iluminado com luzes azuis, verdes e amarelas',
+  },
+  {
+    src: photo23,
+    title: 'Tudo no seu lugar.',
+    category: 'FECHAMENTOS · ESTRUTURA',
+    alt: 'Área de evento delimitada com fechamentos e tendas',
+  },
+  {
+    src: photo27,
+    title: 'No controle da experiência.',
+    category: 'OPERAÇÃO DE SOM',
+    alt: 'Vista dos bastidores com mesas de controle de áudio',
+  },
+  {
+    src: photo29,
+    title: 'Energia que conecta.',
+    category: 'PALCO · ILUMINAÇÃO',
+    alt: 'Show noturno com público e palco iluminado',
+  },
+  {
+    src: photo30,
+    title: 'Pronto para acontecer.',
+    category: 'MONTAGEM DE PALCO',
+    alt: 'Estrutura de palco ao ar livre durante o dia',
+  },
+  {
+    src: photo32,
+    title: 'Uma noite para lembrar.',
+    category: 'SHOWS · ILUMINAÇÃO',
+    alt: 'Palco e público com iluminação intensa durante um show',
+  },
+  {
+    src: photo34,
+    title: 'Do projeto ao palco.',
+    category: 'ESTRUTURA PARA EVENTOS',
+    alt: 'Palco montado ao ar livre sob o céu azul',
+  },
+];
+const fullImages = await Promise.all(
+  photos.map((photo) =>
+    getImage({
+      src: photo.src,
+      width: Math.min(photo.src.width, 1600),
+      format: 'webp',
+    }),
+  ),
+);
+---
+
+<section
+  class="gallery section-pad"
+  id="galeria"
+  aria-labelledby="gallery-title"
+>
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">
+          <span></span> NA PRÁTICA
+        </p>
+        <h2 id="gallery-title">
+          O resultado fala.
+          <br />E faz barulho.
+        </h2>
+      </div>
+      <p>
+        Um pouco do que acontece
+        <br /> quando a estrutura encontra a emoção.
+      </p>
+    </div>
+    <div class="gallery-grid">
+      {photos.slice(0, 6).map((photo, i) => (
+        <button
+          class="gallery-card"
+          type="button"
+          data-photo={fullImages[i].src}
+          data-caption={photo.alt}
+          aria-label={`Ampliar: ${photo.alt}`}
+        >
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            width={760}
+            widths={[360, 600, 760]}
+            sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+            format="webp"
+            loading="lazy"
+          />
+          <span class="gallery-overlay">
+            <span>
+              <span class="photo-category">{photo.category}</span>
+              <strong>{photo.title}</strong>
+            </span>
+            <span class="photo-arrow">
+              <Icon name="diagonal" size={20} />
+            </span>
+          </span>
+        </button>
+      ))}
+    </div>
+    <details class="more-photos">
+      <summary class="button button--outline">
+        <span class="more-label">Ver mais eventos</span>
+        <span class="less-label">Ver menos eventos</span>
+        <Icon name="down" size={18} />
+      </summary>
+      <div class="gallery-grid extra-gallery">
+        {photos.slice(6).map((photo, i) => (
+          <button
+            class="gallery-card"
+            type="button"
+            data-photo={fullImages[i + 6].src}
+            data-caption={photo.alt}
+            aria-label={`Ampliar: ${photo.alt}`}
+          >
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              width={760}
+              format="webp"
+              loading="lazy"
+            />
+            <span class="gallery-overlay">
+              <span>
+                <span class="photo-category">{photo.category}</span>
+                <strong>{photo.title}</strong>
+              </span>
+              <span class="photo-arrow">
+                <Icon name="diagonal" size={20} />
+              </span>
+            </span>
+          </button>
+        ))}
+      </div>
+    </details>
+  </div>
+</section>
+<dialog class="lightbox" aria-label="Imagem do evento ampliada">
+  <button class="lightbox-close" type="button" aria-label="Fechar imagem">
+    <Icon name="close" size={26} />
+  </button>
+  <img class="lightbox-image" alt="" />
+  <p class="lightbox-caption"></p>
+</dialog>
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('.lightbox');
+  const image = document.querySelector<HTMLImageElement>('.lightbox-image');
+  const caption = document.querySelector<HTMLElement>('.lightbox-caption');
+  if (dialog && image && caption) {
+    document
+      .querySelectorAll<HTMLButtonElement>('[data-photo]')
+      .forEach((button) => {
+        button.addEventListener('click', () => {
+          image.src = button.dataset.photo ?? '';
+          image.alt = button.dataset.caption ?? '';
+          caption.textContent = image.alt;
+          dialog.showModal();
+          document.body.classList.add('modal-open');
+        });
+      });
+    dialog
+      .querySelector('button')
+      ?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () =>
+      document.body.classList.remove('modal-open'),
+    );
+  }
+</script>
