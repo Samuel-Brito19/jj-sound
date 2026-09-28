@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;450;500;550;600;650;700&display=swap');
 :root {
   --red: #e90401;
+  --red-accent: #ff302b;
   --black: #000;
   --paper: #f5f4f0;
   --muted: #9c9c9c;
@@ -83,7 +84,7 @@ section[id] {
   display: inline-block;
   width: 6px;
   height: 6px;
-  background: var(--red);
+  background: var(--red-accent);
   flex-shrink: 0;
 }
 .button {
@@ -134,7 +135,7 @@ section[id] {
   font-weight: 500;
 }
 .text-link:hover {
-  color: var(--red);
+  color: var(--red-accent);
 }
 .skip-link {
   position: fixed;
@@ -172,7 +173,7 @@ section[id] {
 }
 .wordmark > span {
   display: block;
-  color: var(--red);
+  color: var(--red-accent);
   font-size: 18px;
   letter-spacing: 6px;
   margin-top: 6px;
@@ -219,7 +220,7 @@ h1 {
 }
 h1 em,
 h2 em {
-  color: var(--red);
+  color: var(--red-accent);
   font-style: normal;
 }
 .hero-description {
@@ -283,7 +284,7 @@ h2 em {
   display: block;
   width: 2px;
   height: calc(var(--bar) * 0.55);
-  background: #a60402;
+  background: var(--red-accent);
 }
 .hero-bottom {
   display: flex;
@@ -352,7 +353,7 @@ h2 em {
   white-space: nowrap;
 }
 .specialties b {
-  color: var(--red);
+  color: var(--red-accent);
   font-size: 23px;
   font-weight: 400;
 }
@@ -405,7 +406,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: var(--red);
+  color: var(--red-accent);
   margin-bottom: 32px;
 }
 .service-card-top > span {

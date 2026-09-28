@@ -1,0 +1,72 @@
+---
+import Icon from './Icon.astro';
+import { whatsappUrl } from '../data/site';
+---
+
+<a
+  class="floating-whatsapp"
+  href={whatsappUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Fale conosco pelo WhatsApp (abre em uma nova aba)"
+  title="Fale conosco pelo WhatsApp"
+>
+  <Icon name="whatsapp" size={36} />
+</a>
+
+<style>
+  .floating-whatsapp {
+    position: fixed;
+    right: calc(20px + env(safe-area-inset-right, 0px));
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 68px;
+    height: 68px;
+    border: 1px solid rgb(255 255 255 / 25%);
+    border-radius: 50%;
+    background: var(--red-accent);
+    color: #fff;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 30%);
+    animation: whatsapp-heartbeat 2.4s ease-in-out infinite;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .floating-whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 24px rgb(0 0 0 / 40%);
+  }
+
+  @keyframes whatsapp-heartbeat {
+    0%,
+    30%,
+    60%,
+    100% {
+      scale: 1;
+    }
+    15% {
+      scale: 1.1;
+    }
+    45% {
+      scale: 1.07;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .floating-whatsapp {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .floating-whatsapp {
+      right: calc(16px + env(safe-area-inset-right, 0px));
+      bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+      width: 64px;
+      height: 64px;
+    }
+  }
+</style>
