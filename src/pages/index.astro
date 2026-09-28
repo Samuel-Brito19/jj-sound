@@ -1,0 +1,202 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import ContactButton from '../components/ContactButton.astro';
+import Icon from '../components/Icon.astro';
+import Services from '../components/Services.astro';
+import Gallery from '../components/Gallery.astro';
+import logo from '../../photos/LOGO.jpeg';
+import stage from '../../photos/WhatsApp Image 2026-09-21 at 1.48.19 PM.jpeg';
+import consolePhoto from '../../photos/WhatsApp Image 2026-09-21 at 1.48.25 PM.jpeg';
+import event from '../../photos/WhatsApp Image 2026-09-21 at 1.48.26 PM.jpeg';
+---
+
+<Layout>
+  <Header />
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span></span> SONORIZAÇÃO & ESTRUTURA PARA EVENTOS
+          </p>
+          <h1 id="hero-title">
+            Seu evento.
+            <br />
+            Em outra
+            <br />
+            <em>frequência.</em>
+          </h1>
+          <p class="hero-description">
+            Som que envolve. Luz que transforma.
+            <br />
+            Estrutura para momentos inesquecíveis.
+          </p>
+          <div class="hero-actions">
+            <ContactButton />
+            <a class="text-link" href="#servicos">
+              Conheça nossa estrutura <Icon name="down" size={17} />
+            </a>
+          </div>
+        </div>
+        <div class="hero-brand">
+          <span class="brand-caption">A EXPERIÊNCIA COMEÇA AQUI</span>
+          <Image
+            src={logo}
+            alt="Adailton Som — Sonorização profissional"
+            width={850}
+            loading="eager"
+            fetchpriority="high"
+            format="webp"
+          />
+          <div class="brand-baseline">
+            <span>SOM. LUZ. EMOÇÃO.</span>
+            <div class="soundwave" aria-hidden="true">
+              {Array.from({ length: 29 }, (_, i) => (
+                <i
+                  style={`--bar: ${[12, 22, 10, 32, 18, 45, 25, 15, 36, 50, 24, 15, 40, 20, 54, 28, 16, 42, 30, 18, 48, 22, 34, 14, 26, 38, 16, 24, 10][i]}px`}
+                ></i>
+              ))}
+            </div>
+            <span>ADAILTON SOM</span>
+          </div>
+        </div>
+      </div>
+      <div class="container hero-bottom">
+        <span>DA MONTAGEM AO ÚLTIMO APLAUSO.</span>
+        <a href="#galeria">
+          VEJA A GENTE EM AÇÃO <Icon name="down" size={15} />
+        </a>
+      </div>
+      <div class="container event-strip">
+        <div>
+          <Image
+            src={stage}
+            alt="Palco com painéis de LED e iluminação de show"
+            width={850}
+            format="webp"
+          />
+          <span>01 / O ESPETÁCULO</span>
+        </div>
+        <div>
+          <Image
+            src={consolePhoto}
+            alt="Mesa de som profissional em operação"
+            width={650}
+            format="webp"
+          />
+          <span>02 / OS DETALHES</span>
+        </div>
+        <div>
+          <Image
+            src={event}
+            alt="Público e palco durante um evento noturno"
+            width={650}
+            format="webp"
+          />
+          <span>03 / A EXPERIÊNCIA</span>
+        </div>
+      </div>
+      <div class="specialties" aria-label="Nossas especialidades">
+        <div class="container">
+          <span>SONORIZAÇÃO</span>
+          <b aria-hidden="true">✳</b>
+          <span>ILUMINAÇÃO</span>
+          <b aria-hidden="true">✳</b>
+          <span>ESTRUTURA</span>
+          <b aria-hidden="true">✳</b>
+          <span>PAINÉIS DE LED</span>
+          <b aria-hidden="true">✳</b>
+          <span>SEU EVENTO COMPLETO</span>
+        </div>
+      </div>
+    </section>
+    <Services />
+    <section class="about section-pad" id="sobre" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div>
+          <p class="eyebrow">
+            <span></span> NOSSA ESSÊNCIA
+          </p>
+          <h2 id="about-title">
+            Nos bastidores,
+            <br />a dedicação.
+            <br />
+            No palco, <em>a emoção.</em>
+          </h2>
+        </div>
+        <div class="about-copy">
+          <p>
+            Um grande evento começa muito antes de abrir os portões. Começa no
+            cuidado com a estrutura, na escolha do som e na luz que vai dar vida
+            a cada momento.
+          </p>
+          <p>
+            Na Adailton Som, reunimos sonorização profissional e estrutura para
+            transformar seu projeto em uma experiência que o público sente e
+            lembra.
+          </p>
+          <a class="text-link" href="#contato">
+            Vamos fazer parte do seu próximo evento{' '}
+            <Icon name="diagonal" size={20} />
+          </a>
+        </div>
+      </div>
+    </section>
+    <Gallery />
+    <section
+      class="contact section-pad"
+      id="contato"
+      aria-labelledby="contact-title"
+    >
+      <div class="container contact-grid">
+        <div>
+          <p class="eyebrow">
+            <span></span> VAMOS FAZER ACONTECER?
+          </p>
+          <h2 id="contact-title">
+            O próximo grande
+            <br />
+            evento pode ser o seu.
+          </h2>
+          <p>Conte sua ideia. A gente ajuda com a estrutura.</p>
+        </div>
+        <div class="contact-action">
+          <ContactButton variant="light" />
+          <span>
+            <Icon name="whatsapp" size={16} /> Vamos conversar pelo WhatsApp
+          </span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <a
+        class="wordmark"
+        href="#inicio"
+        aria-label="Adailton Som — voltar ao início"
+      >
+        ADAILTON
+        <span>
+          SOM<span class="brand-dot">®</span>
+        </span>
+      </a>
+      <p>
+        Estrutura para acontecer.
+        <br />
+        Som para sentir.
+      </p>
+      <a class="back-to-top" href="#inicio">
+        De volta ao topo <span>↑</span>
+      </a>
+    </div>
+    <div class="container footer-bottom">
+      <span>
+        © {new Date().getFullYear()} Adailton Som. Todos os direitos reservados.
+      </span>
+      <span>SONORIZAÇÃO PROFISSIONAL & ESTRUTURA PARA EVENTOS</span>
+    </div>
+  </footer>
+</Layout>
