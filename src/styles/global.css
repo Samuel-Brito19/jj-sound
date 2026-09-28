@@ -911,7 +911,6 @@ h2 {
   }
   .brand-baseline {
     flex-wrap: wrap;
-    justify-content: center;
     margin-top: 18px;
     padding-top: 16px;
     justify-content: space-between;
