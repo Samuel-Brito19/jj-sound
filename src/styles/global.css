@@ -154,10 +154,13 @@ section[id] {
 }
 .header-inner {
   height: 99px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 30px;
+}
+.header-inner > .wordmark {
+  justify-self: start;
 }
 .wordmark {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
@@ -182,21 +185,15 @@ section[id] {
   margin-left: 5px;
 }
 .site-header nav {
+  grid-column: 2;
   display: flex;
+  justify-content: center;
   gap: 36px;
-  margin-left: auto;
-  margin-right: 56px;
   font-size: 15px;
   color: #bebebe;
 }
 .site-header nav a:hover {
   color: #fff;
-}
-.site-header .button {
-  min-height: 43px;
-  padding: 11px 18px;
-  font-size: 14px;
-  gap: 28px;
 }
 .hero {
   padding-top: 75px;
@@ -683,7 +680,6 @@ h2 {
     width: calc(100% - 64px);
   }
   .site-header nav {
-    margin-right: 15px;
     gap: 22px;
   }
   .hero-grid {
@@ -735,7 +731,6 @@ h2 {
   }
   .header-inner {
     height: 83px;
-    flex-wrap: wrap;
     gap: 15px;
   }
   .site-header nav {
@@ -744,10 +739,6 @@ h2 {
   }
   .site-header nav a {
     font-size: 14px;
-  }
-  .site-header .button {
-    gap: 12px;
-    padding: 10px 12px;
   }
   .hero {
     padding-top: 50px;
@@ -847,8 +838,16 @@ h2 {
   }
 }
 @media (max-width: 600px) {
+  .hero-copy {
+    text-align: center;
+  }
+  .hero-copy .eyebrow,
+  .hero-actions {
+    justify-content: center;
+  }
   .header-inner {
     height: auto;
+    grid-template-columns: 1fr;
     padding-block: 19px;
     row-gap: 22px;
   }
@@ -859,7 +858,7 @@ h2 {
     font-size: 15px;
   }
   .site-header nav {
-    order: 3;
+    grid-column: 1;
     width: 100%;
     justify-content: center;
     border-top: 1px solid #222;
@@ -869,10 +868,6 @@ h2 {
   }
   .site-header nav a {
     font-size: 14px;
-  }
-  .site-header .button {
-    margin-left: auto;
-    min-height: 41px;
   }
   .hero-grid {
     grid-template-columns: 1fr;
