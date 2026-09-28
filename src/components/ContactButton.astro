@@ -1,0 +1,20 @@
+---
+import Icon from './Icon.astro';
+import { whatsappUrl } from '../data/site';
+interface Props {
+  label?: string;
+  variant?: 'primary' | 'outline' | 'light';
+}
+const { label = 'Fale conosco', variant = 'primary' } = Astro.props;
+---
+
+<a
+  class:list={['button', `button--${variant}`]}
+  href={whatsappUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`${label} pelo WhatsApp (abre em uma nova aba)`}
+>
+  <span>{label}</span>
+  <Icon name="diagonal" size={19} />
+</a>
