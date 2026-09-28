@@ -133,8 +133,14 @@ const fullImages = await Promise.all(
         <br /> quando a estrutura encontra a emoção.
       </p>
     </div>
-    <div class="gallery-grid">
-      {photos.slice(0, 6).map((photo, i) => (
+    <div
+      class="gallery-grid"
+      id="gallery-track"
+      role="region"
+      aria-label="Fotos dos eventos"
+      tabindex="0"
+    >
+      {photos.map((photo, i) => (
         <button
           class="gallery-card"
           type="button"
@@ -163,72 +169,198 @@ const fullImages = await Promise.all(
         </button>
       ))}
     </div>
-    <details class="more-photos">
-      <summary class="button button--outline">
-        <span class="more-label">Ver mais eventos</span>
-        <span class="less-label">Ver menos eventos</span>
-        <Icon name="down" size={18} />
-      </summary>
-      <div class="gallery-grid extra-gallery">
-        {photos.slice(6).map((photo, i) => (
-          <button
-            class="gallery-card"
-            type="button"
-            data-photo={fullImages[i + 6].src}
-            data-caption={photo.alt}
-            aria-label={`Ampliar: ${photo.alt}`}
-          >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              width={760}
-              format="webp"
-              loading="lazy"
-            />
-            <span class="gallery-overlay">
-              <span>
-                <span class="photo-category">{photo.category}</span>
-                <strong>{photo.title}</strong>
-              </span>
-              <span class="photo-arrow">
-                <Icon name="diagonal" size={20} />
-              </span>
-            </span>
-          </button>
-        ))}
+    <div class="gallery-navigation">
+      <p>Deslize para ver mais eventos</p>
+      <div class="gallery-controls">
+        <button
+          type="button"
+          class="gallery-previous"
+          aria-label="Fotos anteriores"
+          aria-controls="gallery-track"
+        >
+          <Icon name="arrow" />
+        </button>
+        <button
+          type="button"
+          class="gallery-next"
+          aria-label="Próximas fotos"
+          aria-controls="gallery-track"
+        >
+          <Icon name="arrow" />
+        </button>
       </div>
-    </details>
+    </div>
   </div>
 </section>
 <dialog class="lightbox" aria-label="Imagem do evento ampliada">
-  <button class="lightbox-close" type="button" aria-label="Fechar imagem">
+  <button
+    class="lightbox-close"
+    type="button"
+    aria-label="Fechar imagem"
+    autofocus
+  >
     <Icon name="close" size={26} />
   </button>
-  <img class="lightbox-image" alt="" />
-  <p class="lightbox-caption"></p>
+  <div
+    class="lightbox-feed"
+    tabindex="0"
+    role="region"
+    aria-label="Fotos dos eventos. Deslize para cima ou para baixo."
+  >
+    {photos.map((photo, index) => (
+      <figure
+        class="lightbox-slide"
+        aria-label={`Foto ${index + 1} de ${photos.length}`}
+      >
+        <img
+          class="lightbox-image"
+          data-src={fullImages[index].src}
+          alt={photo.alt}
+          width={photo.src.width}
+          height={photo.src.height}
+          decoding="async"
+        />
+        <figcaption class="lightbox-caption">{photo.alt}</figcaption>
+      </figure>
+    ))}
+  </div>
+  <div class="lightbox-toolbar">
+    <span
+      class="lightbox-position"
+      aria-live="polite"
+      aria-atomic="true"
+    ></span>
+    <span class="lightbox-hint">Deslize para ver mais</span>
+    <div class="lightbox-controls">
+      <button
+        type="button"
+        class="lightbox-previous"
+        aria-label="Foto anterior"
+      >
+        <Icon name="down" />
+      </button>
+      <button type="button" class="lightbox-next" aria-label="Próxima foto">
+        <Icon name="down" />
+      </button>
+    </div>
+  </div>
 </dialog>
 <script>
+  const track = document.querySelector<HTMLElement>('#gallery-track');
+  const previous =
+    document.querySelector<HTMLButtonElement>('.gallery-previous');
+  const next = document.querySelector<HTMLButtonElement>('.gallery-next');
+
+  if (track && previous && next) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateControls = () => {
+      previous.disabled = track.scrollLeft <= 1;
+      next.disabled =
+        track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    };
+    const move = (direction: number) => {
+      const card = track.querySelector<HTMLElement>('.gallery-card');
+      if (!card) return;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      track.scrollBy({
+        left: direction * (card.offsetWidth + gap),
+        behavior: reducedMotion.matches ? 'instant' : 'smooth',
+      });
+    };
+    previous.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    track.addEventListener('scroll', updateControls, { passive: true });
+    track.addEventListener('keydown', (event) => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key))
+        return;
+      event.preventDefault();
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        move(event.key === 'ArrowLeft' ? -1 : 1);
+      } else {
+        track.scrollTo({
+          left: event.key === 'Home' ? 0 : track.scrollWidth,
+          behavior: reducedMotion.matches ? 'instant' : 'smooth',
+        });
+      }
+    });
+    new ResizeObserver(updateControls).observe(track);
+    updateControls();
+  }
+
   const dialog = document.querySelector<HTMLDialogElement>('.lightbox');
-  const image = document.querySelector<HTMLImageElement>('.lightbox-image');
-  const caption = document.querySelector<HTMLElement>('.lightbox-caption');
-  if (dialog && image && caption) {
+  const feed = document.querySelector<HTMLElement>('.lightbox-feed');
+  const slides = Array.from(
+    document.querySelectorAll<HTMLElement>('.lightbox-slide'),
+  );
+  const position = document.querySelector<HTMLElement>('.lightbox-position');
+  const previousPhoto =
+    document.querySelector<HTMLButtonElement>('.lightbox-previous');
+  const nextPhoto = document.querySelector<HTMLButtonElement>('.lightbox-next');
+
+  if (dialog && feed && position && previousPhoto && nextPhoto) {
+    let activeIndex = 0;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePhoto = (index: number) => {
+      activeIndex = Math.max(0, Math.min(index, slides.length - 1));
+      position.textContent = `${activeIndex + 1} / ${slides.length}`;
+      previousPhoto.disabled = activeIndex === 0;
+      nextPhoto.disabled = activeIndex === slides.length - 1;
+      slides
+        .slice(Math.max(0, activeIndex - 1), activeIndex + 2)
+        .forEach((slide) => {
+          const image = slide.querySelector<HTMLImageElement>('img');
+          if (image && !image.hasAttribute('src'))
+            image.src = image.dataset.src ?? '';
+        });
+    };
+    const goTo = (index: number, instant = false) => {
+      updatePhoto(index);
+      feed.scrollTo({
+        top: activeIndex * feed.clientHeight,
+        behavior: instant || reducedMotion.matches ? 'instant' : 'smooth',
+      });
+    };
     document
       .querySelectorAll<HTMLButtonElement>('[data-photo]')
-      .forEach((button) => {
+      .forEach((button, index) => {
         button.addEventListener('click', () => {
-          image.src = button.dataset.photo ?? '';
-          image.alt = button.dataset.caption ?? '';
-          caption.textContent = image.alt;
           dialog.showModal();
           document.body.classList.add('modal-open');
+          goTo(index, true);
         });
       });
-    dialog
-      .querySelector('button')
-      ?.addEventListener('click', () => dialog.close());
-    dialog.addEventListener('click', (event) => {
-      if (event.target === dialog) dialog.close();
+    feed.addEventListener(
+      'scroll',
+      () => {
+        if (feed.clientHeight)
+          updatePhoto(Math.round(feed.scrollTop / feed.clientHeight));
+      },
+      { passive: true },
+    );
+    previousPhoto.addEventListener('click', () => goTo(activeIndex - 1));
+    nextPhoto.addEventListener('click', () => goTo(activeIndex + 1));
+    dialog.addEventListener('keydown', (event) => {
+      if (
+        !['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End'].includes(
+          event.key,
+        )
+      )
+        return;
+      event.preventDefault();
+      if (event.key === 'Home') goTo(0);
+      else if (event.key === 'End') goTo(slides.length - 1);
+      else
+        goTo(
+          activeIndex +
+            (['ArrowDown', 'PageDown'].includes(event.key) ? 1 : -1),
+        );
     });
+    new ResizeObserver(() => {
+      if (dialog.open) goTo(activeIndex, true);
+    }).observe(feed);
+    dialog
+      .querySelector('.lightbox-close')
+      ?.addEventListener('click', () => dialog.close());
     dialog.addEventListener('close', () =>
       document.body.classList.remove('modal-open'),
     );

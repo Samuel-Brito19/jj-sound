@@ -471,10 +471,54 @@ h2 {
 }
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 36px) / 3);
   gap: 18px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--red-accent) #222;
+  padding: 8px 0 18px;
+}
+.gallery-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+}
+.gallery-navigation p {
+  color: #aaa;
+  font-size: 14px;
+}
+.gallery-controls {
+  display: flex;
+  gap: 12px;
+}
+.gallery-controls button {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid #484848;
+  border-radius: 50%;
+  background: transparent;
+}
+.gallery-controls button:hover:not(:disabled) {
+  border-color: var(--red-accent);
+  color: var(--red-accent);
+}
+.gallery-controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.gallery-previous svg {
+  transform: rotate(180deg);
 }
 .gallery-card {
+  scroll-snap-align: start;
+  min-width: 0;
   position: relative;
   height: 315px;
   overflow: hidden;
@@ -527,62 +571,106 @@ h2 {
   border-radius: 50%;
   flex-shrink: 0;
 }
-.more-photos {
-  margin-top: 36px;
-}
-.more-photos summary {
-  width: max-content;
-  margin-inline: auto;
-  list-style: none;
-}
-.more-photos summary::-webkit-details-marker {
-  display: none;
-}
-.less-label {
-  display: none;
-}
-.more-photos[open] .more-label {
-  display: none;
-}
-.more-photos[open] .less-label {
-  display: inline;
-}
-.more-photos[open] summary svg {
-  transform: rotate(180deg);
-}
-.extra-gallery {
-  margin-top: 36px;
-}
 .lightbox {
-  background: #111;
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: #080808;
   color: white;
-  border: 1px solid #444;
-  padding: 50px 20px 20px;
-  width: min(1100px, 94vw);
-  max-height: 94vh;
 }
 .lightbox::backdrop {
-  background: #000e;
-  backdrop-filter: blur(5px);
+  background: #000;
+}
+.lightbox-feed {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+.lightbox-feed::-webkit-scrollbar {
+  display: none;
+}
+.lightbox-slide {
+  height: 100%;
+  margin: 0;
+  padding: calc(64px + env(safe-area-inset-top, 0px)) 20px
+    calc(90px + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 16px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 .lightbox-image {
-  max-height: 75vh;
   width: 100%;
+  height: 100%;
+  min-height: 0;
   object-fit: contain;
 }
 .lightbox-caption {
   text-align: center;
-  margin-top: 14px;
-  color: #ccc;
+  max-width: 800px;
+  margin-inline: auto;
+  color: #ddd;
   font-size: 16px;
+  line-height: 1.5;
 }
 .lightbox-close {
   position: absolute;
-  right: 9px;
-  top: 7px;
-  background: transparent;
-  border: 0;
-  padding: 6px;
+  z-index: 1;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: #222;
+  border: 1px solid #555;
+  border-radius: 50%;
+}
+.lightbox-toolbar {
+  position: absolute;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  left: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+  font-size: 13px;
+}
+.lightbox-hint {
+  color: #aaa;
+}
+.lightbox-controls {
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+}
+.lightbox-controls button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #555;
+  background: #222;
+}
+.lightbox-controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.lightbox-previous svg {
+  transform: rotate(180deg);
 }
 .modal-open {
   overflow: hidden;
@@ -817,7 +905,7 @@ h2 {
     font-size: 16px;
   }
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-auto-columns: calc((100% - 18px) / 2);
   }
   .gallery-card {
     height: 300px;
@@ -1010,7 +1098,7 @@ h2 {
   }
   .gallery-grid {
     gap: 13px;
-    grid-template-columns: 1fr;
+    grid-auto-columns: 88%;
   }
   .gallery-card {
     height: 330px;
