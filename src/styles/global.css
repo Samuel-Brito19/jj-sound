@@ -728,6 +728,15 @@ h2 {
   color: #888;
   line-height: 1.7;
 }
+.footer-logo {
+  flex-shrink: 0;
+}
+.footer-logo img {
+  display: block;
+  width: 180px;
+  height: 48px;
+  object-fit: cover;
+}
 .back-to-top {
   margin-left: auto;
   display: flex;

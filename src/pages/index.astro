@@ -7,6 +7,7 @@ import Icon from '../components/Icon.astro';
 import Services from '../components/Services.astro';
 import Gallery from '../components/Gallery.astro';
 import logo from '../../photos/LOGO.jpeg';
+import footerLogo from '../../photos/AL2.jpg';
 import stage from '../../photos/WhatsApp Image 2026-09-21 at 1.48.19 PM.jpeg';
 import consolePhoto from '../../photos/WhatsApp Image 2026-09-21 at 1.48.25 PM.jpeg';
 import event from '../../photos/WhatsApp Image 2026-09-21 at 1.48.26 PM.jpeg';
@@ -172,14 +173,11 @@ import event from '../../photos/WhatsApp Image 2026-09-21 at 1.48.26 PM.jpeg';
   <footer class="site-footer">
     <div class="container footer-top">
       <a
-        class="wordmark"
+        class="footer-logo"
         href="#inicio"
         aria-label="Adailton Som — voltar ao início"
       >
-        ADAILTON
-        <span>
-          SOM<span class="brand-dot">®</span>
-        </span>
+        <Image src={footerLogo} alt="Adailton Som" width={640} format="webp" />
       </a>
       <p>
         Estrutura para acontecer.
